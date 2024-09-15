@@ -10,13 +10,13 @@ import Container from "../templates/container";
 
 const postCategories = [
   { title: "View all", value: "all" },
-  { title: "Technology", value: "technology" },
-  { title: "Lifestyle", value: "lifestyle" },
-  { title: "Travel", value: "travel" },
-  { title: "Food", value: "food" },
-  { title: "Business", value: "business" },
-  { title: "Health", value: "health" },
-  { title: "Sport", value: "sport" },
+  { title: "Technology", value: "Technology" },
+  { title: "Lifestyle", value: "Life Style" },
+  { title: "Travel", value: "Travel" },
+  { title: "Food", value: "Food" },
+  { title: "Business", value: "Business" },
+  { title: "Health", value: "Health" },
+  { title: "Sport", value: "Sport" },
 ];
 
 interface PostListProps {

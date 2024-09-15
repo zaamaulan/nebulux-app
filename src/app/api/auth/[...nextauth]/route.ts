@@ -3,6 +3,7 @@ import db from "@/services/db";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { JWT } from "next-auth/jwt";
 
 const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
@@ -89,6 +90,7 @@ const handler = NextAuth({
     async session({ session, token }) {
       if (token) {
         session.user = token.user;
+        session.token = token as JWT;
       }
       return session;
     },

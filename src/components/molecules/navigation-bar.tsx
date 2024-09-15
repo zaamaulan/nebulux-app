@@ -7,14 +7,15 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/atoms/ui/sheet";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { MenuIcon } from "../atoms/icon";
+import { Avatar, AvatarImage } from "../atoms/ui/avatar";
 import { Button } from "../atoms/ui/button";
 import { Separator } from "../atoms/ui/separator";
 import NavigatonLink from "./navigation-link";
-import { usePathname } from "next/navigation";
 import PublishButton from "./publish-button";
 
 export default function NavigationBar() {
@@ -63,14 +64,13 @@ export default function NavigationBar() {
               </Link>
             </>
           )}
+
           {session && (
-            <Button
-              className="rounded-full text-base max-md:hidden"
-              variant={"ghost"}
-              onClick={() => signOut()}
-            >
-              Sign out
-            </Button>
+            <Link href={"/profile"}>
+             <Avatar>
+              <AvatarImage src={'/images/1.jpg'} className="object-cover" />
+             </Avatar>
+            </Link>
           )}
         </div>
       </header>

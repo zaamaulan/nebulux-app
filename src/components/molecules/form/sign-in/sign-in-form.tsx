@@ -11,19 +11,17 @@ import {
   FormMessage,
 } from "@/components/atoms/ui/form";
 import { Input } from "@/components/atoms/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { signInSchema } from "./schema";
-import { signIn } from "next-auth/react";
-import { useToast } from "@/hooks/use-toast";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 
 export default function SignInForm() {
   const { toast } = useToast();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get("callbackUrl") || "/";
 
@@ -35,10 +33,10 @@ export default function SignInForm() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof signInSchema>) {
+  async function onSubmit(data: z.infer<typeof signInSchema>) {
     const result = await signIn("credentials", {
-      email: values.email,
-      password: values.password,
+      email: data.email,
+      password: data.password,
       redirect: false,
       callbackUrl,
     });

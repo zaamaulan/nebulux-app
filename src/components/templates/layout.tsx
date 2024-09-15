@@ -10,7 +10,7 @@ export default function Layout({
   className?: string;
 }) {
   return (
-    <div className={cn(className, "mx-auto w-11/12")}>
+    <div className={cn(className, "mx-auto w-11/12 mb-20")}>
       <NavigationBar />
       <main>{children}</main>
     </div>

@@ -2,9 +2,9 @@ import { z } from "zod";
 
 export const signUpSchema = z
   .object({
-    full_name: z
-      .string({ required_error: "Full name is required" })
-      .min(1, "Full name is required"),
+    name: z
+      .string({ required_error: "Name is required" })
+      .min(1, "Name is required"),
     username: z
       .string({ required_error: "Username is required" })
       .min(1, "Username is required")

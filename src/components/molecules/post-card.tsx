@@ -43,14 +43,14 @@ import Link from "next/link";
 interface PostCardProps {
   id: string;
   title: string;
-  description: string;
+  // description: string;
   slug: string;
   className?: string;
   thumbnail?: string;
 }
 
 export default function PostCard({
-  description,
+  // description,
   slug,
   title,
   className,
@@ -81,7 +81,10 @@ export default function PostCard({
       </div>
       <figcaption className="mt-4">
         <h3 className={cn("line-clamp-2 text-xl font-semibold")}>{title}</h3>
-        <p className="mt-2 line-clamp-2 text-zinc-600">{description}</p>
+        <p className="mt-2 line-clamp-2 text-zinc-600">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae
+          dolorem id nobis error, ab eum optio officia dicta autem explicabo?
+        </p>
         {/* <div className="relative w-6 h-6">
         <Image src="/images/avatar.jpg" alt="" width={24} height={24} className="rounded-full" />
       </div> */}

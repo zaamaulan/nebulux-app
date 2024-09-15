@@ -11,13 +11,19 @@ import {
   FormMessage,
 } from "@/components/atoms/ui/form";
 import { Input } from "@/components/atoms/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios, { AxiosError } from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { signUpSchema } from "./schema";
 
 export default function SignInForm() {
+  const { toast } = useToast();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -26,9 +32,42 @@ export default function SignInForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof signUpSchema>) {
-    console.log(values);
-  }
+  const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
+    try {
+      await axios.post("/api/auth/register", data);
+      router.push("/auth/sign-in");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 409) {
+          return toast({
+            title: "User already exists",
+            description: "Please try again with another username or email.",
+            variant: "destructive",
+          });
+        } else if (error.response?.status === 400) {
+          return toast({
+            title: "Invalid credentials",
+            description: "Please double-check your email and password.",
+            variant: "destructive",
+          });
+        } else {
+          return toast({
+            title: "Error",
+            description:
+              "An unexpected error occurred. Please try again later.",
+            variant: "destructive",
+          });
+        }
+      } else {
+        return toast({
+          title: "Error",
+          description:
+            "An unexpected error occurred. Please check your connection or try again later.",
+          variant: "destructive",
+        });
+      }
+    }
+  };
 
   return (
     <Form {...form}>
@@ -39,10 +78,10 @@ export default function SignInForm() {
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2">
           <FormField
             control={form.control}
-            name="full_name"
+            name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input type="text" placeholder="John Doe" {...field} />
                 </FormControl>
