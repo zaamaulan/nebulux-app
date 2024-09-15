@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+// import { inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+
+import { Toaster as SonnerToaster } from "@/components/atoms/ui/sonner";
+import { Toaster } from "@/components/atoms/ui/toaster";
+import { ClientProviders } from "@/providers/client-providers";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+
+// const rubik = inter({ subsets: ["latin"], weight: [] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,9 +20,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={GeistSans.className}>
+        <ClientProviders>
+          <Toaster />
+          <SonnerToaster />
+          {children}
+        </ClientProviders>
+      </body>
     </html>
   );
 }
