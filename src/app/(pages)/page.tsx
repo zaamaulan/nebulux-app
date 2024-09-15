@@ -10,7 +10,6 @@ export default async function HomePage() {
     },
   });
 
-  console.log(articles);
 
   return (
     <Layout>

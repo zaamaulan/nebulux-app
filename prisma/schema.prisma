@@ -24,18 +24,18 @@ datasource db {
 // }
 
 model Article {
-  id          String     @id @default(cuid())
-  title       String
-  
+  id    String @id @default(cuid())
+  title String
+
   content     String
   slug        String     @unique
   authorId    String?
   category    String
   image       String?
-  stars       Int
+  stars       Int?       @default(0)
   bookmarks   Bookmark[]
   author      User?      @relation(fields: [authorId], references: [id], onDelete: SetNull)
-  createdAt   DateTime?   @default(now())
+  createdAt   DateTime?  @default(now())
   publishedAt DateTime?
 
   @@index([slug])

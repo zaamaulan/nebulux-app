@@ -18,10 +18,8 @@ export const POST = async (request: Request) => {
 
     const user = await db.user.create({
       data: {
-        email,
+        ...validatedData.data,
         password: hashedPassword,
-        name,
-        username,
       },
       omit: {
         password: true,
